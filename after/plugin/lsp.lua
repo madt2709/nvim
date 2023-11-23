@@ -1,5 +1,7 @@
 local lsp = require("lsp-zero")
 
+lsp.preset("recommended")
+
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
     lsp.buffer_autoformat()
@@ -18,26 +20,32 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'rust_analyzer', 'pyright', 'lua_ls'},
-  handlers = {
-    lsp.default_setup,
-  },
-  automatic_installation = true
+    ensure_installed = { 'tsserver', 'rust_analyzer', 'pyright', 'lua_ls' },
+    handlers = {
+        lsp.default_setup,
+    },
+    automatic_installation = true
 })
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
-  sources = {
-    {name = 'path'},
-    {name = 'nvim_lsp'},
-    {name = 'nvim_lua'},
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete(),
-  }),
+    sources = {
+        { name = 'path' },
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+        ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-Space>'] = cmp.mapping.complete(),
+    }),
+})
+
+lsp.setup()
+
+vim.diagnostic.config({
+    virtual_text = true
 })
