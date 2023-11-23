@@ -18,13 +18,11 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'rust_analyzer', 'pyright'},
+  ensure_installed = {'tsserver', 'rust_analyzer', 'pyright', 'lua_ls'},
   handlers = {
     lsp.default_setup,
-    lua_ls = function()
-      require('lspconfig')
-    end,
-  }
+  },
+  automatic_installation = true
 })
 
 local cmp = require('cmp')
