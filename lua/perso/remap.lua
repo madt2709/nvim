@@ -32,3 +32,11 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
+
+-- shortcut for tabs
+local i = 1
+while i <= 9 do
+    vim.api.nvim_exec('nnoremap <Leader>' .. i .. ' :' .. i .. 'wincmd w<CR>', false)
+    vim.api.nvim_exec('tnoremap <Leader>' .. i .. ' <C-\\><C-n>:' .. i .. 'wincmd w<CR>', false)
+    i = i + 1
+end
