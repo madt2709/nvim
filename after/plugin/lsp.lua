@@ -47,7 +47,17 @@ cmp.setup({
 lsp.setup()
 
 local lspconfig = require("lspconfig")
-lspconfig.gopls.setup({})
+lspconfig.gopls.setup({
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            staticcheck = true,
+            gofumpt = true,
+        },
+    },
+})
 
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.go",
